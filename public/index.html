@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="style.css" rel="stylesheet">  
+  <script src="main.js"></script>  
+</head>
+<body>
+  <div class="main">
+
+    <div class="left">
+
+      <div class="WaferForm">
+        <p>Wafer Diameter : </p>
+        <input class="WaferInput" type="number" />
+      </div>
+
+      <div id="titleBox" class="UnitFormWrapper">
+        <h2 id="title">Unit</h2>
+        <div class="UnitForm">
+          <p>Width : </p>
+          <input class="UnitFormWidthInput" type="number" />
+        </div>
+        <div class="UnitForm">
+          <p>Height : </p>
+          <input class="UnitFormHeightInput" type="number" />
+        </div>
+      </div>
+
+      <div class="Control">
+        <button class="ControlAddChip">Add New Chip</button>
+        <button class="ControlDraw">Draw</button>
+        <button class="ControlRun">Run</button>
+      </div>
+
+      <div class ="ChipTableWrapper">
+        <table class="ChipTable">
+          <tr>
+            <th> </th>
+            <th> X </th>
+            <th> Y </th>
+            <th> Width </th>
+            <th> Run </th>
+          </tr>
+        </table>
+      </div>
+      
+      <div id="titleBox" class="Result">
+        <h2 id="title">Results</h2>
+        <div class="ResultWrapper">
+          <p>Max Unit Num : </p> 
+          <p class="ResultUnitNum"></p>
+        </div>
+        <div class="ResultWrapper">
+          <p>Max Chip Num : </p> 
+          <p class="ResultChipNum"></p>
+        </div>
+        <div class="ResultWrapper">
+          <p>Max Distance : </p> 
+          <p class="ResultDist"></p>
+        </div>
+      </div>
+    
+    </div>
+      
+    <div class="right">
+      <canvas class="wafer"></canvas>
+    </div>
+
+  </div>
+</body>
+</html>

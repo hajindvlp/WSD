@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
+
+html, body, div, p, h2 {
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Mukta', sans-serif;
+}
+
+body .main {
+  height: 100%;
+}
+
+p {
+  display: inline-block;
+}
+
+.right {
+  width: 50%;
+  float: right;
+  height: 100%;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  height: 100%;
+  float: left;
+
+  padding: 10px;
+  border-right: 2px black solid;
+}
+
+#title {
+  position: relative; 
+  top : 0;
+  margin-left: 0.5em;
+  display: block; 
+}
+
+.WaferForm {
+  width: 100%;
+  font-size: 20px;
+}
+
+.WaferForm > .WaferInput {
+  height: 24px;
+  width: auto;
+}
+
+.UnitFormWrapper {
+  padding: 10px;
+}
+
+.UnitFormWrapper > .UnitForm {
+  display: inline-block;
+}
+
+.UnitFormWrapper > .UnitForm > input {
+  width: 100px;
+  height: 24px;
+}
+
+.UnitFormWrapper > .UnitForm {
+  margin-right: 50px;
+}
+
+.Control {
+  padding: 10px;
+}
+
+.Control > button {
+  width: 30%;
+  margin-right: 10px;
+}
+
+.ChipTableWrapper {
+  overflow: auto;
+}
+
+.ChipTable {
+  height: 300px;
+}
+
+.ChipTable > th {
+  border-bottom: 1px solid black;
+}
