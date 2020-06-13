@@ -16,8 +16,9 @@ class _Draw {
     let drawObj = this.drawBase;
 
     Object.assign(drawObj, {
-      x, y, 
-      radius: diameter/2,
+      x : this.sx + x,
+      y : this.sy + y, 
+      radius: diameter/2 * SvgScale,
       color, opacity
     });
 
@@ -28,7 +29,11 @@ class _Draw {
     let drawObj = this.drawBase;
 
     Object.assign(drawObj, {
-      x, y, w, h, color, opacity
+      x : this.sx + x * SvgScale,
+      y : this.sy + y * SvgScale, 
+      w : w * SvgScale, 
+      h : h * SvgScale, 
+      color, opacity
     });
 
     this.drawCmds.push(new DrawCommand(DRAW_RECT, drawObj));

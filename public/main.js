@@ -2,8 +2,9 @@
 const dpi = window.devicePixelRatio;
 let svg = document.getElementById('transform');
 let parentSvg = svg.parentNode;
+let isCalculated =  false;
 
-var SvgScale = 6;
+var SvgScale = 1;
 var Chips = new _Chips();
 var Draw = new _Draw(svg, 0, 0);
 
@@ -74,6 +75,44 @@ const controlRunClick = (evt) => {
 /* #endregion */
 
 
+/* #region  Mouse Drag */
+
+let isMouseDown = false;
+let sx, sy;
+
+const MouseDown = evt => {
+  isMouseDown = true;
+  sx = evt.offsetX;
+  sy = evt.offsetY;
+}
+
+const MouseMove = evt => {
+  if (isMouseDown) {
+    let ax = evt.offsetX - sx;
+    let ay = evt.offsetY - sy;
+    Draw.sx += ax / 6;
+    Draw.sy -= ay / 6;
+    sx = evt.offsetX;
+    sy = evt.offsetY;
+    DrawWafer(isCalculated);
+  }
+}
+
+const MouseEnd = evt => {
+  isMouseDown = false;
+}
+
+const MouseScroll = evt => {
+
+  if(evt.deltaY > 0) SvgScale /= 1.1;
+  else if(evt.deltaY < 0) SvgScale *= 1.1;
+
+  DrawWafer(isCalculated);
+}
+
+/* #endregion */
+
+
 /* #region  Event Listeners */
 
 let eventType = "keyup"
@@ -87,41 +126,13 @@ document.addEventListener("keydown", (evt) => { evt.target.className === "ChipIn
 document.addEventListener("keypress", (evt) => { evt.target.className === "ChipInfo" && chipInfoInput(evt) });
 document.addEventListener("keyup", (evt) => { evt.target.className === "ChipInfo" && chipInfoInput(evt) });
 
-window.addEventListener("resize", evt => {
-  svgInit(svg);
-})
-
 document.getElementById('ControlRun').addEventListener('click', controlRunClick);
 
-let isMouseDown = false;
-let sx, sy;
-parentSvg.addEventListener("mousedown", evt => { 
-  isMouseDown = true; 
-  sx = evt.offsetX;
-  sy = evt.offsetY;
-
-  console.log(sx, sy);
-})
-
-parentSvg.addEventListener("mousemove", evt => {
-  if (isMouseDown) {
-    let ax = evt.offsetX - sx;
-    let ay = evt.offsetY - sy;
-    Draw.sx += ax;
-    Draw.sy += ay;
-    sx = evt.offsetX;
-    sy = evt.offsetY;
-    DrawWafer(false);
-  }
-})
-
-parentSvg.addEventListener("mouseup", evt => { isMouseDown = false })
-
-parentSvg.addEventListener("mouseleave", evt => { isMouseDown = false })
-
-svg.addEventListener("scroll", evt => {
-  console.log(evt);
-})
+parentSvg.addEventListener("mousedown", MouseDown);
+parentSvg.addEventListener("mousemove", MouseMove);
+parentSvg.addEventListener("mouseup", MouseEnd);
+parentSvg.addEventListener("mouseleave", MouseEnd);
+parentSvg.addEventListener("wheel", MouseScroll);
 
 /* #endregion */
 
@@ -129,13 +140,42 @@ svg.addEventListener("scroll", evt => {
 /* #region  Draw Functions */
 
 const DrawFullWafer = () => {
+  let i, j, k;
+  let mxUnitW = Math.ceil(Chips.wafer.radius / Chips.unit.w) + 1;
+  let mxUnitH = Math.ceil(Chips.wafer.radius / Chips.unit.h) + 1;
+  let sx, sy, usx, usy;
 
+  sy = Chips.whenMxChip.y;
+  sx = Chips.whenMxChip.x;
+
+  for(i=-mxUnitH ; i<=mxUnitH ; i++)
+    for(j=-mxUnitW ; j<=mxUnitW ; j++) {
+      usy = i * Chips.unit.h + sy;
+      usx = j * Chips.unit.w + sx;
+
+      let unitOk = false;
+
+      for(k=0 ; k<4 ; k++) {
+        let dist = distToO(usx + Chips.unit.coord[k].x, usy + Chips.unit.coord[k].y);
+
+        if(dist < Chips.wafer.radius) unitOk = true;
+      }
+
+      if(unitOk) {
+        Draw.rect(usx, usy, Chips.unit.w, Chips.unit.h, "#001580", 0.3);
+
+        Chips.unit.set.forEach(chip => {
+          if(!chip.disabled) 
+            Draw.rect(usx + chip.sx, usy + chip.sy, chip.w, chip.h, "#7600c9", 0.3);
+        })
+      }
+    }
 }
 
 const DrawWafer = (final) => {
+  isCalculated = final;
   Draw.clear();
   Draw.circle(0, 0, Chips.wafer.diameter, "#de9726", 0.3);
-  svg.style.transform = `translate("${Draw.sx}", "${Draw.sy}")`;
 
   if (final) DrawFullWafer();
   else {
@@ -148,4 +188,3 @@ const DrawWafer = (final) => {
 }
 
 /* #endregion */
-

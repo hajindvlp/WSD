@@ -1,51 +1,27 @@
 {
-  "name": "wafershotdie",
-  "version": "1.0.0",
-  "description": "",
+  "name": "wsd",
+  "productName": "wsd",
+  "version": "1.1.0",
+  "description": "Simple App to Maximize Shots on Wafer",
   "main": "index.js",
-  "scripts": {
-    "dev": "electron .",
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hajindvlp/wsd.git"
   },
-  "author": "hajindvlp",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "HajinChung",
   "license": "ISC",
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.51",
-    "@electron-forge/maker-deb": "^6.0.0-beta.51",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.51",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.51",
-    "@electron-forge/maker-zip": "^6.0.0-beta.51",
-    "electron": "^9.0.2"
+    "electron": "^9.0.2",
+    "electron-builder": "^22.7.0"
   },
-  "dependencies": {
-    "electron-squirrel-startup": "^1.0.0"
-  },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "wafershotdie"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
+  "build": {
+    "appId": "com.hajindvlp.wsd",
+    "win": {
+      "target": [
+        "nsis"
       ]
     }
   }

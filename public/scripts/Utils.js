@@ -26,32 +26,10 @@ const newRowNode = (chipNum) => {
   return div;
 }
 
-const gcd = function(a, b) {
-  if (!b) {
-    return a;
-  }
-
-  return gcd(b, a % b);
-}
-
-const fixDpi = () => {
-  let style = {
-    height() {
-      return +getComputedStyle(canvas).getPropertyValue('height').slice(0, -2);
-    },
-    width() {
-      return +getComputedStyle(canvas).getPropertyValue('width').slice(0, -2);
-    }
-  }
-
-  canvas.setAttribute('width', style.width() * dpi);
-  canvas.setAttribute('height', style.height() * dpi);
-
-  console.log(style.width(), style.height())
-}
-
 const circleNode = (drawObj) => {
   let nodeObj = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+
+  NanTo0(drawObj);
 
   nodeObj.setAttributeNS(null, "cx", drawObj.x);
   nodeObj.setAttributeNS(null, "cy", drawObj.y);
@@ -59,13 +37,15 @@ const circleNode = (drawObj) => {
   nodeObj.setAttributeNS(null, "fill", drawObj.color);
   nodeObj.setAttributeNS(null, "fill-opacity", drawObj.opacity);
   nodeObj.setAttributeNS(null, "stroke", drawObj.color);
-  nodeObj.setAttributeNS(null, "stroke-width", "0.5");
+  nodeObj.setAttributeNS(null, "stroke-width", "0.3");
 
   return nodeObj;
 }
 
 const rectNode = (drawObj) => {
   let nodeObj = document.createElementNS('http://www.w3.org/2000/svg', "rect");
+  
+  NanTo0(drawObj);
 
   nodeObj.setAttributeNS(null, "x", drawObj.x);
   nodeObj.setAttributeNS(null, "y", drawObj.y);
@@ -74,18 +54,13 @@ const rectNode = (drawObj) => {
   nodeObj.setAttributeNS(null, "fill", drawObj.color);
   nodeObj.setAttributeNS(null, "fill-opacity", drawObj.opacity);
   nodeObj.setAttributeNS(null, "stroke", drawObj.color);
-  nodeObj.setAttributeNS(null, "stroke-width", "0.5");
+  nodeObj.setAttributeNS(null, "stroke-width", "0.3");
 
   return nodeObj;
 }
 
-const svgInit = () => {
-}
-
-const getMousePosition = (evt) => {
-  let CTM = svg.getScreenCTM();
-  return {
-    x: (evt.clientX - CTM.e) / CTM.a,
-    y: (evt.clientY - CTM.f) / CTM.d
-  }; 
+const NanTo0 = Obj => {
+  for (var prop in Obj) {
+    Obj[prop] = Obj[prop] || 0;
+  }
 }
