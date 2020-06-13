@@ -4,70 +4,76 @@
   <meta charset="utf8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="style.css" rel="stylesheet">  
-  <script src="main.js"></script>  
 </head>
 <body>
-  <div class="main">
+  <div id="main">
 
-    <div class="left">
+    <div id="left">
 
-      <div class="WaferForm">
+      <div id="WaferForm">
         <p>Wafer Diameter : </p>
-        <input class="WaferInput" type="number" />
+        <input id="WaferInput" type="number" />
       </div>
 
-      <div id="titleBox" class="UnitFormWrapper">
-        <h2 id="title">Unit</h2>
-        <div class="UnitForm">
+      <div class="titleBox" id="UnitFormWrapper">
+        <h2 class="title">Unit</h2>
+        <div id="UnitForm">
           <p>Width : </p>
-          <input class="UnitFormWidthInput" type="number" />
+          <input id="UnitWidthInput" type="number" />
         </div>
-        <div class="UnitForm">
+        <div id="UnitForm">
           <p>Height : </p>
-          <input class="UnitFormHeightInput" type="number" />
+          <input id="UnitHeightInput" type="number" />
         </div>
       </div>
 
-      <div class="Control">
-        <button class="ControlAddChip">Add New Chip</button>
-        <button class="ControlDraw">Draw</button>
-        <button class="ControlRun">Run</button>
+      <div id="Control">
+        <button id="ControlRun">Run</button>
       </div>
 
-      <div class ="ChipTableWrapper">
-        <table class="ChipTable">
-          <tr>
-            <th> </th>
-            <th> X </th>
-            <th> Y </th>
-            <th> Width </th>
-            <th> Run </th>
-          </tr>
-        </table>
+      <div id ="ChipTableWrapper">
+        <div id="ChipTable">
+          <div id="trd">
+            <span id="td"> <button id="AddNewChip">+</button>  </span>
+            <span id="td"> X </span>
+            <span id="td"> Y </span>
+            <span id="td"> Width </span>
+            <span id="td"> Height </span>
+          </div>
+        </div>
       </div>
       
-      <div id="titleBox" class="Result">
-        <h2 id="title">Results</h2>
-        <div class="ResultWrapper">
+      <div class="titleBox" id="Result">
+        <h2 class="title">Results</h2>
+        <div id="ResultWrapper">
           <p>Max Unit Num : </p> 
-          <p class="ResultUnitNum"></p>
+          <p id="ResultUnitNum"></p>
         </div>
-        <div class="ResultWrapper">
+        <div id="ResultWrapper">
           <p>Max Chip Num : </p> 
-          <p class="ResultChipNum"></p>
+          <p id="ResultChipNum"></p>
         </div>
-        <div class="ResultWrapper">
+        <div id="ResultWrapper">
           <p>Max Distance : </p> 
-          <p class="ResultDist"></p>
+          <p id="ResultDist"></p>
         </div>
       </div>
     
     </div>
       
-    <div class="right">
-      <canvas class="wafer"></canvas>
+    <div id="right">
+      <div id="CanvasWrapper" hidden> 
+        <canvas id="canvas" width="500" height="500"></canvas>
+      </div>
+      <div id="SvgWrapper">
+        <svg id="svg"></svg>
+      </div>
     </div>
 
   </div>
+  <script src="scripts/Chip.js"></script>
+  <script src="scripts/Draw.js"></script>
+  <script src="scripts/Utils.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Mukta&display=swap');
 
+/* #region  Global Styles */
+
 html, body, div, p, h2 {
   margin: 0;
   padding: 0;
@@ -7,7 +9,13 @@ html, body, div, p, h2 {
   font-family: 'Mukta', sans-serif;
 }
 
-body .main {
+body {
+  height: 100vh;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
   height: 100%;
 }
 
@@ -15,75 +23,122 @@ p {
   display: inline-block;
 }
 
-.right {
+/* #endregion */
+
+
+/* #region Left Style */
+
+#left {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+  float: left;
+
+  padding: 10px;  
+  border-right: 2px black solid;
+}
+
+#left > div {
+  padding: 10px;
+}
+
+#WaferForm {
+  width: 100%;
+  font-size: 20px;
+}
+
+#WaferForm > #WaferInput {
+  height: 24px;
+  width: auto;
+}
+
+#UnitFormWrapper > #UnitForm {
+  display: inline-block;
+}
+
+#UnitFormWrapper > #UnitForm > input {
+  width: 100px;
+  height: 24px;
+}
+
+#UnitFormWrapper > #UnitForm {
+  margin-right: 50px;
+}
+
+#Control {
+  padding: 10px;
+}
+
+#Control > button {
+  width: 30%;
+  margin-right: 10px;
+}
+
+#ChipTableWrapper {
+  overflow: auto;
+  flex-grow: 1;
+}
+
+#ChipTable > #trd {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  border-bottom: 1px solid black;
+}
+
+#ChipTable > #trd > #td > input{
+  width: 100%;
+}
+
+#ChipTable > #tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#ChipTable > button {
+  width: 180%;
+} 
+
+#ChipTable > #tr > #td > input{
+  width: 100%;
+}
+
+#td {
+  justify-self: center;
+  width: 60px;  
+}
+
+/* #endregion */
+
+
+/* #region Right Style */
+
+#right {
   width: 50%;
   float: right;
   height: 100%;
 }
 
-.left {
-  display: flex;
-  flex-direction: column;
+#SvgWrapper {
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
 
-  width: 50%;
-  height: 100%;
-  float: left;
-
-  padding: 10px;
-  border-right: 2px black solid;
+  padding: 2px;
 }
 
-#title {
-  position: relative; 
-  top : 0;
-  margin-left: 0.5em;
-  display: block; 
-}
-
-.WaferForm {
+#SvgWrapper > svg {
   width: 100%;
-  font-size: 20px;
+  height: 100%;
+  background-color: lightgray;
 }
 
-.WaferForm > .WaferInput {
-  height: 24px;
-  width: auto;
+#canvas {
+  width: 100%;
+  height: 100%;
+  background-color: lightgray;
 }
 
-.UnitFormWrapper {
-  padding: 10px;
-}
-
-.UnitFormWrapper > .UnitForm {
-  display: inline-block;
-}
-
-.UnitFormWrapper > .UnitForm > input {
-  width: 100px;
-  height: 24px;
-}
-
-.UnitFormWrapper > .UnitForm {
-  margin-right: 50px;
-}
-
-.Control {
-  padding: 10px;
-}
-
-.Control > button {
-  width: 30%;
-  margin-right: 10px;
-}
-
-.ChipTableWrapper {
-  overflow: auto;
-}
-
-.ChipTable {
-  height: 300px;
-}
-
-.ChipTable > th {
-  border-bottom: 1px solid black;
-}
+/* #endregion */
