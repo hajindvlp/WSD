@@ -49,3 +49,43 @@ const fixDpi = () => {
 
   console.log(style.width(), style.height())
 }
+
+const circleNode = (drawObj) => {
+  let nodeObj = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+
+  nodeObj.setAttributeNS(null, "cx", drawObj.x);
+  nodeObj.setAttributeNS(null, "cy", drawObj.y);
+  nodeObj.setAttributeNS(null, "r", drawObj.radius);
+  nodeObj.setAttributeNS(null, "fill", drawObj.color);
+  nodeObj.setAttributeNS(null, "fill-opacity", drawObj.opacity);
+  nodeObj.setAttributeNS(null, "stroke", drawObj.color);
+  nodeObj.setAttributeNS(null, "stroke-width", "0.5");
+
+  return nodeObj;
+}
+
+const rectNode = (drawObj) => {
+  let nodeObj = document.createElementNS('http://www.w3.org/2000/svg', "rect");
+
+  nodeObj.setAttributeNS(null, "x", drawObj.x);
+  nodeObj.setAttributeNS(null, "y", drawObj.y);
+  nodeObj.setAttributeNS(null, "width", drawObj.w);
+  nodeObj.setAttributeNS(null, "height", drawObj.h);
+  nodeObj.setAttributeNS(null, "fill", drawObj.color);
+  nodeObj.setAttributeNS(null, "fill-opacity", drawObj.opacity);
+  nodeObj.setAttributeNS(null, "stroke", drawObj.color);
+  nodeObj.setAttributeNS(null, "stroke-width", "0.5");
+
+  return nodeObj;
+}
+
+const svgInit = () => {
+}
+
+const getMousePosition = (evt) => {
+  let CTM = svg.getScreenCTM();
+  return {
+    x: (evt.clientX - CTM.e) / CTM.a,
+    y: (evt.clientY - CTM.f) / CTM.d
+  }; 
+}

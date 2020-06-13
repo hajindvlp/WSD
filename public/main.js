@@ -1,17 +1,11 @@
 /* #region  Initialize */
-
-const canvas = document.getElementById('canvas');
-const context = canvas.getContext('2d');
 const dpi = window.devicePixelRatio;
+let svg = document.getElementById('transform');
+let parentSvg = svg.parentNode;
 
-const svg = document.getElementById('svg');
-
-const CANVAS_WIDTH = canvas.width;
-const CANVAS_HEIGHT = canvas.height;
-context.transform(1, 0, 0, -1, CANVAS_WIDTH/2, CANVAS_HEIGHT/2);
-
+var SvgScale = 6;
 var Chips = new _Chips();
-var Draw = new _Draw(canvas, 0, 0);
+var Draw = new _Draw(svg, 0, 0);
 
 /* #endregion */
 
@@ -93,34 +87,41 @@ document.addEventListener("keydown", (evt) => { evt.target.className === "ChipIn
 document.addEventListener("keypress", (evt) => { evt.target.className === "ChipInfo" && chipInfoInput(evt) });
 document.addEventListener("keyup", (evt) => { evt.target.className === "ChipInfo" && chipInfoInput(evt) });
 
+window.addEventListener("resize", evt => {
+  svgInit(svg);
+})
+
 document.getElementById('ControlRun').addEventListener('click', controlRunClick);
 
 let isMouseDown = false;
-let x, y;
-canvas.addEventListener("mousedown", (evt) => {
-  x = evt.offsetX;
-  y = evt.offsetY;
+let sx, sy;
+parentSvg.addEventListener("mousedown", evt => { 
+  isMouseDown = true; 
+  sx = evt.offsetX;
+  sy = evt.offsetY;
 
-  isMouseDown = true;
+  console.log(sx, sy);
 })
 
-canvas.addEventListener("mousemove", (evt) => {
+parentSvg.addEventListener("mousemove", evt => {
   if (isMouseDown) {
-    Draw.sx = evt.offsetX - x;
-    Draw.sy = evt.offsetY - y;
-
-    x = evt.offsetX;
-    y = evt.offsetY;
-
+    let ax = evt.offsetX - sx;
+    let ay = evt.offsetY - sy;
+    Draw.sx += ax;
+    Draw.sy += ay;
+    sx = evt.offsetX;
+    sy = evt.offsetY;
     DrawWafer(false);
   }
 })
 
-canvas.addEventListener("mouseup", (evt) => {
-  isMouseDown = false;
-})
+parentSvg.addEventListener("mouseup", evt => { isMouseDown = false })
 
-// canvas.addEventListener("scroll")
+parentSvg.addEventListener("mouseleave", evt => { isMouseDown = false })
+
+svg.addEventListener("scroll", evt => {
+  console.log(evt);
+})
 
 /* #endregion */
 
@@ -134,6 +135,7 @@ const DrawFullWafer = () => {
 const DrawWafer = (final) => {
   Draw.clear();
   Draw.circle(0, 0, Chips.wafer.diameter, "#de9726", 0.3);
+  svg.style.transform = `translate("${Draw.sx}", "${Draw.sy}")`;
 
   if (final) DrawFullWafer();
   else {
